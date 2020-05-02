@@ -21,3 +21,33 @@
 // Stretch goal
 // Make the countdown live (show a countdown that updates several times a
 // second)
+
+let countdownTarget = Math.floor(Math.random() * (5 - 3) + 3);
+
+document.querySelector("#time").innerText = countdownTarget;
+
+let winState = true;
+
+setTimeout(function () {
+    winState = false;
+}, countdownTarget * 1000);
+
+document.addEventListener("click", function () {
+    console.log(winState);
+    if (winState === true) {
+        document.querySelector("#result").innerText = "You WIN!";
+    } else {
+        document.querySelector("#result").innerText = "You're gonna need to be a little faster than that. Sorry.";
+    }
+});
+
+let newCountdown = countdownTarget * 1000;
+
+let timer = setInterval(function () {
+    newCountdown -= 100;
+    if (newCountdown >= 0) {
+        document.querySelector("#time").innerText = newCountdown / 1000;
+    } else {
+        clearInterval(timer);
+    }
+}, 100);
