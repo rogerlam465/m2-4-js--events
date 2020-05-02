@@ -13,3 +13,19 @@
 // OPTIONAL
 // Feel free to add some CSS to this once you're done
 // --------------------------------------------------
+
+let withinTime = true;
+
+setTimeout(function () {
+    withinTime = false;
+}, 1000);
+
+document.addEventListener("click", function () {
+    if (withinTime === true) {
+        let notify = "You made it!";
+        document.querySelector("#result").innerText = notify;
+    } else {
+        let notify = "Too slow, Jacko.";
+        document.querySelector("#result").innerText = notify;
+    }
+})

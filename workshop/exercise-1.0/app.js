@@ -9,3 +9,9 @@
 // OPTIONAL
 // Feel free to add some CSS to this once you're done
 // --------------------------------------------------
+
+document.addEventListener("click", function () {
+    let textAdd = document.createElement("h2");
+    textAdd.innerText = "this is very large";
+    document.querySelector("#main").appendChild(textAdd);
+});
