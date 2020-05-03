@@ -1,0 +1,13 @@
+#buttonBox {
+    display: flex;
+    flex-direction: column;
+}
+
+button {
+    margin: 20px;
+    background: red;
+}
+
+.greenButton {
+    background: green;
+}
