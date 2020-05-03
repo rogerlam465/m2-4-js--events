@@ -1,16 +1,18 @@
 // start by populating current time
 
-let currTimeNode = document.createElement("span");
-currTimeNode.setAttribute("id", "currentTime");
-
 let rawDate = new Date();
 let currTime = rawDate.toLocaleTimeString();
-document.querySelector("#currentTime").innerText = currTime;
+
+let currTimeNode = document.createElement("span");
+currTimeNode.setAttribute("id", "currentTimeDisplay");
+currTimeNode.innerText = currTime;
+
+document.querySelector("#currentTime").appendChild(currTimeNode);
 
 setInterval(function () {
     rawDate = new Date();
     currTime = rawDate.toLocaleTimeString();
-    document.querySelector("#currentTime").innerText = currTime;
+    document.querySelector("#currentTimeDisplay").innerText = currTime;
 }, 1000)
 
 // STOP! HAMMER TIME.
@@ -27,70 +29,107 @@ function padZero(time) {
 }
 
 let stopwatchState = false;
+let stopwatchTimer;
 
-document.querySelector("#stopwatchTrigger").addEventListener("click", function () {
-    // when we click the button, we should check the state
-    // if it's running, we want to clearInterval()
-    // if it ain't running, we want to start an interval timer
+let timeArr = ["", "", ""];
 
-    stopwatchState = !stopwatchState;
+timeArr.forEach(function (timeVal) {
+    let li = document.createElement("li");
+    li.innerText = timeVal;
+    document.querySelector("#stopwatchCounter").appendChild(li);
+});
+
+function setTimer() {
 
     // init variables
 
-    let timerCounter = 0;
+    let timeCount = 0;
     let secondsCounter = 0;
     let minuteCounter = 0;
 
-    let timeRun = setInterval(function () {
+    stopwatchTimer = setInterval(function () {
+        timeCount += 10;
 
-        if (stopwatchState === false) {
-            clearInterval(timeRun);
-            document.querySelector("#stopwatchTrigger").innerText = "Start";
-        } else {
+        document.querySelector("#stopwatchTrigger").innerText = "Reset";
 
-            document.querySelector("#stopwatchTrigger").innerText = "Reset";
-
-            timerCounter += 10;
-
-            if (timerCounter > 990) {
-                secondsCounter++;
-                timerCounter = 0;
-            }
-
-            if (secondsCounter > 60) {
-                minuteCounter++;
-                secondsCounter = 0;
-            }
-
-            timeStr = padZero(minuteCounter) + ":" + padZero(secondsCounter) + ":" + padZero(timerCounter);
-
-            document.querySelector("#stopwatchCounter").innerText = timeStr;
-
+        if (timeCount > 990) {
+            secondsCounter++;
+            timeCount = 0;
         }
+
+        if (secondsCounter > 59) {
+            minuteCounter++;
+            secondsCounter = 0;
+        }
+
+        // I don't like just concaten...conca... sticking 'em together
+        // the animation makes the whole thing vibrate like a coke machine having a fit
+        // let's build an array of li elements and iter...ita... go through 'em in order
+
+        timeArr = [padZero(minuteCounter), padZero(secondsCounter), padZero(timeCount / 10)];
+
+        for (let i = 0; i <= 2; i++) {
+            document.querySelectorAll("li")[i].innerText = timeArr[i];
+        }
+
     }, 10);
+}
+
+function killTimer() {
+    document.querySelector("#stopwatchTrigger").innerText = "Start";
+    clearInterval(stopwatchTimer);
+}
+
+document.querySelector("#stopwatchTrigger").addEventListener("click", function () {
+    stopwatchState = !stopwatchState;
+
+    if (stopwatchState === false) {
+        killTimer();
+    } else {
+        setTimer();
+    }
 });
 
 // let's build a timer. Not an egg timer, just a timer
 // you know what? I'm not the boss of you. Time your eggs. You do you.
 
-document.querySelector("#timerTrigger").addEventListener("click", function () {
-    // the user had better put in a numerical value or SO HELP ME
-    let timerVal = document.querySelector("#secondsInput").value;
+let timerState = false;
+let eggTimer;
 
-    console.log(timerVal);
+function setEggTimer(time) {
+    let eggCount = time;
+    document.querySelector("#timerDisplay").innerText = eggCount;
+    document.querySelector("#timerTrigger").innerText = "Reset Timer";
 
-    let eggTimer = setInterval(function () {
-
-        timerVal -= 1;
-
-        if (timerVal <= 0) {
-            alert("Time's up!");
+    eggTimer = setInterval(function () {
+        if (eggCount < 1) {
+            alert("Time's up, Mr. Bond.");
             clearInterval(eggTimer);
+        } else {
+            eggCount--;
+            document.querySelector("#timerDisplay").innerText = eggCount;
         }
-
-        console.log(timerVal);
-
     }, 1000);
+}
 
+function killEggTimer() {
+    document.querySelector("#timerTrigger").innerText = "Start Timer";
+    document.querySelector("#secondsInput").style.visibility = "visible";
+    clearInterval(eggTimer);
+}
+
+document.querySelector("#timerTrigger").addEventListener("click", function () {
+    timerState = !timerState;
+
+    let timerVal = document.querySelector("#secondsInput").value;
+    document.querySelector("#secondsInput").value = "";
+
+    if (timerState === false) {
+        killEggTimer();
+    } else {
+        document.querySelector("#secondsInput").style.visibility = "hidden";
+        setEggTimer(timerVal);
+    }
 
 });
+

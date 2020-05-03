@@ -6,29 +6,45 @@
     <title>title</title>
     <link rel="stylesheet" href="style.css" type="text/css">
     <script src="app.js" type="text/javascript" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
 
-    <section id="currentTime">
+    <article>
 
-    </section>
+        <section id="currentTime">
 
-    <section id="stopwatch">
+            <h2>the current time is</h2>
 
-        <span id="stopwatchCounter">00:00</span>
+        </section>
 
-        <button id="stopwatchTrigger">Start</button>
+        <section id="stopwatch">
 
-    </section>
+            <h2>this is a stopwatch</h2>
 
-    <section id="timer">
+            <ol id="stopwatchCounter">
 
-        <input type="number" id="secondsInput" placeholder="Enter a time in seconds.">
+            </ol>
 
-        <button id="timerTrigger">Start Timer</button>
+            <button id="stopwatchTrigger">Start</button>
 
-    </section>
+        </section>
+
+        <section id="timer">
+
+            <h2>this is a timer</h2>
+
+            <span id="timerDisplay"></span>
+
+            <input type="number" id="secondsInput" placeholder="Enter a time in seconds.">
+
+            <button id="timerTrigger">Start Timer</button>
+
+        </section>
+
+    </article>
 
 </body>
 
