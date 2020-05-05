@@ -1,0 +1,13 @@
+body {
+    height: 100vh;
+}
+
+.greenify {
+    background: green;
+}
+
+button {
+    background: red;
+    width: 30px;
+    height: 30px;
+}
