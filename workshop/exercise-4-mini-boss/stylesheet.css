@@ -1,0 +1,45 @@
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Oswald', sans-serif;
+}
+
+#mainContain {
+    padding: 25px;
+    background: lightgrey;
+    border-radius: 25px;
+}
+
+.rowBoy {
+    display: flex;
+}
+
+.gameButton {
+    background: red;
+    width: 30px;
+    height: 30px;
+}
+
+span {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+}
+
+.gameStartBut {
+    height: 80px;
+    width: 150px;
+    margin: 0 auto;
+    top: 200px;
+}
+
+.greenify {
+    background: green;
+}
+
+#timeDisplay {
+    justify-self: center;
+
+}
